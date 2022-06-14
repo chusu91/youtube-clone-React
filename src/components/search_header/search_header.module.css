@@ -20,14 +20,14 @@
 
 .input {
   flex-basis: 100%;
-  height: 3rem;
+  
   font-size: 1.2rem;
   outline: 0;
 }
 
 .button {
   background-color: darkgray;
-  height: 3rem;
+ 
   outline: 0;
   cursor: pointer;
 }
