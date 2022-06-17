@@ -7,8 +7,8 @@ const VideoList = ({ videos, onVideoClick, display }) => {
     <ul className={styles.videos}>
       {videos.map((video) => (
         <VideoItem
-          video={video}
           key={video.id}
+          video={video}
           onVideoClick={onVideoClick}
           display={display}
         />

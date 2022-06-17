@@ -3,6 +3,7 @@ import SearchHeader from "./components/search_header/search_header";
 import VideoList from "./components/video_list/video_list";
 import styles from "./app.module.css";
 import VideoDetail from "./components/video_detail/video_detail";
+import { useCallback } from "react";
 
 function App({ youtube }) {
   const [videos, setVideos] = useState([]);
@@ -12,11 +13,11 @@ function App({ youtube }) {
     setSelectedVideo(video);
   };
 
-  const searchVideo = (query) => {
+  const search = (query) => {
     youtube
       .search(query) //
-      .then((videos) => {
-        setVideos(videos);
+      .then((items) => {
+        setVideos(items);
         setSelectedVideo(null);
       });
   };
@@ -29,7 +30,7 @@ function App({ youtube }) {
 
   return (
     <div className={styles.app}>
-      <SearchHeader searchVideo={searchVideo} />
+      <SearchHeader onSearch={search} />
       <section className={styles.content}>
         {selectedVideo && (
           <div className={styles.detail}>

@@ -1,47 +1,44 @@
-import React from "react";
+import React, { memo } from "react";
 import { useRef } from "react";
 import styles from "./search_header.module.css";
 
-const SearchHeader = ({ searchVideo }) => {
+const SearchHeader = ({ onSearch }) => {
   const inputRef = useRef();
-
-  const handleSearch = () => {
-    const searchKeyword = inputRef.current.value;
-    searchKeyword && searchVideo(searchKeyword);
+  const formRef = useRef();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const query = inputRef.current.value;
+    query && onSearch(query);
+    formRef.current.reset();
   };
-
-  const onClick = () => {
-    handleSearch();
-  };
-  const onKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  };
-
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img className={styles.img} src="/images/logo.png" alt="logo" />
-        <h1 className={styles.title}>Youtube</h1>
+        <img src="/images/logo.png" alt="logo" />
       </div>
+      <span className={styles.title}>Youtube</span>
 
-      <input
-        className={styles.input}
-        ref={inputRef}
-        type="text"
-        placeholder="search"
-        onKeyPress={onKeyPress}
-      />
-      <button className={styles.button} type="submit" onClick={onClick}>
-        <img
-          src="/images/search.png"
-          alt="search button"
-          className={styles.buttonImg}
+      <form
+        ref={formRef}
+        className={styles.searchContainer}
+        action="submit"
+        onSubmit={onSubmit}
+      >
+        <input
+          ref={inputRef}
+          className={styles.input}
+          type="text"
+          placeholder="Search..."
         />
-      </button>
+        <button className={styles.searchBtn}>
+          <img
+            className={styles.searchImg}
+            src="/images/search.png"
+            alt="search button"
+          />
+        </button>
+      </form>
     </header>
   );
 };
-
 export default SearchHeader;
